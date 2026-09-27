@@ -74,8 +74,7 @@ window.SITE = {
     },
     {
       title: "Clone Wars Tycoon",
-      img: "assets/img/brand/tycoon-logo.webp",
-      contain: true,
+      img: "assets/img/brand/tycoon-thumb.webp",
       badge: "in prototyping",
       body: "A faster-paced tycoon spin-off built on a shared framework.",
     },
