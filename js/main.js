@@ -126,7 +126,9 @@
 
   const card = (c) => `
     <article class="card reveal">
-      <div class="thumb" data-full="${c.img}" data-cap="${esc(c.title)}"><img src="${c.img}" alt="${esc(c.title)}" loading="lazy"></div>
+      ${c.video
+        ? `<div class="thumb media-thumb"><video muted loop playsinline preload="none" poster="${c.video}.webp" aria-label="${esc(c.title)} clip"><source src="${c.video}.mp4" type="video/mp4"></video></div>`
+        : `<div class="thumb" data-full="${c.img}" data-cap="${esc(c.title)}"><img src="${c.img}" alt="${esc(c.title)}" loading="lazy"></div>`}
       <div class="body">
         <h4>${esc(c.title)}</h4>
         <p>${esc(c.body)}</p>
@@ -178,7 +180,7 @@
     }),
     { threshold: 0.35 }
   );
-  document.querySelectorAll(".feature video").forEach((v) => {
+  document.querySelectorAll(".feature video, .card video").forEach((v) => {
     vids.observe(v);
     if (reduced) v.controls = true;
   });

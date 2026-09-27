@@ -79,20 +79,20 @@ window.SITE = {
     {
       title: "Bounty Board",
       img: "assets/img/ui/bounty-board.webp",
-      body: "Cross-server contracts: browse live bounties, place your own and buy bounty protection. Data syncs across every running server.",
-      tags: ["MessagingService", "Cross-server", "UI"],
+      body: "Cross-server contracts: browse live bounties, place your own, and track contracts you've placed — kills remaining, status, the players who claimed it, and refunds on cancellation.",
+      tags: ["Cross-server", "Economy", "UI"],
     },
     {
-      title: "Item Roll",
-      img: "assets/img/ui/item-roll.webp",
-      body: "Spend in-game credits to discover a new item — no Robux needed. Built as a self-contained UI module with preview panel and animation cues.",
-      tags: ["Gacha UI", "Economy"],
+      title: "Stylist — Character Customization",
+      video: "assets/video/stylist",
+      body: "Visit the stylist NPC to change hair, faces and hair colour with a live preview on your character. Featured, category and owned tabs, plus links to buy matching items on Roblox.",
+      tags: ["Avatar", "NPC interaction", "Shop UI"],
     },
     {
-      title: "Top-down Minimap",
-      img: "assets/img/ui/minimap-topdown.webp",
-      body: "Live minimap with prices, objective chevrons and custom markers for jobs, shops and events.",
-      tags: ["Minimap", "Markers"],
+      title: "Coruscant Map",
+      img: "assets/img/ui/coruscant-map.webp",
+      body: "Full-screen world map with district labels, points of interest for jobs, shops and events, and a live in-game clock.",
+      tags: ["Map", "Markers", "Wayfinding"],
     },
   ],
 
@@ -114,6 +114,11 @@ window.SITE = {
 
   tools: [
     {
+      name: "gar-bot",
+      lang: "discord.js · Node.js · MongoDB",
+      body: "The GAR community's Discord bot: Roblox account verification and role sync, promotion points and leaderboards, medals, virtual gamepasses and moderation tools — all backed by gar-api.",
+    },
+    {
       name: "gar-api",
       lang: "Node.js · Express · MongoDB",
       body: "The backend that game servers talk to — promotions and rank syncing, bans and warnings, activity/time tracking, medals, virtual gamepasses, data transfers and batched Discord logging.",
@@ -133,11 +138,6 @@ window.SITE = {
       name: "roblox-oauth-verify",
       lang: "discord.js · Roblox OAuth 2.0",
       body: "Discord bot that proves a user owns a Roblox account via official OAuth — no bio codes, no cookies.",
-    },
-    {
-      name: "rojo-template",
-      lang: "Luau · Rojo · Aftman · Selene",
-      body: "My starting point for every place: loader/controller architecture, ProfileStore data, bans, scene manager, signals and UI loader — all synced from VS Code.",
     },
   ],
 
