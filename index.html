@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>RainyLofi | Roblox Developer · GAR / SWRP</title>
   <meta name="description" content="Portfolio of RainyLofi, a Roblox gameplay, UI and backend developer. Systems and tools built for GAR / SWRP.">
-  <meta name="theme-color" content="#07070d">
+  <meta name="theme-color" content="#050b12">
   <meta property="og:title" content="RainyLofi | Roblox Developer">
   <meta property="og:description" content="Gameplay systems, UI and backend tooling built for GAR / SWRP.">
   <meta property="og:image" content="https://rainylofi.xyz/assets/img/og.jpg">
@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.add("js");addEventListener("error",()=>document.documentElement.classList.remove("js"));</script>
-  <link rel="stylesheet" href="css/style.css?v=20260927g">
+  <link rel="stylesheet" href="css/style.css?v=20260927h">
 </head>
 <body>
   <canvas id="rain" aria-hidden="true"></canvas>
@@ -72,7 +72,13 @@
           <p>Most of my work lives in <strong>GAR</strong> and its <strong>Star Wars roleplay</strong> experiences: gameplay systems, quest &amp; job loops, player economies, game UI, and the backend services and Discord tooling that keep a big community running.</p>
           <p>I like owning a feature end to end: the server-side Luau, the UI players interact with, and the Node API and database behind it.</p>
           <p>I do use AI tools (they're in the workflow list), but as tools, not as a substitute for knowing what I'm doing. Everything I ship gets reviewed and tested by me, and I can explain and debug every line of it.</p>
-          <div class="avatar-wrap"><img src="assets/img/avatar.webp" alt="RainyLofi avatar: hooded figure with headphones under a rain cloud" class="avatar" loading="lazy" width="320" height="320"></div>
+          <div class="avatar-wrap">
+            <img src="assets/img/avatar.webp" alt="RainyLofi's profile art: a goose looking up at a bright cyan sky" class="avatar" loading="lazy" width="320" height="320">
+            <a class="ingame" href="https://www.roblox.com/users/248428063/profile" target="_blank" rel="noopener" title="RainyLofi on Roblox">
+              <img src="assets/img/roblox-headshot.webp" alt="RainyLofi's Roblox avatar" width="56" height="56" loading="lazy">
+              <div><span>// in-game</span><strong>RainyLofi</strong></div>
+            </a>
+          </div>
         </div>
         <div class="code reveal">
           <div class="term-bar"><i></i><i></i><i></i><span>Rainy.lua</span></div>
@@ -103,8 +109,8 @@
 }
 
 <span class="k">function</span> Rainy:ship(change)
-    <span class="k">local</span> draft = tools.assist(change) <span class="c">-- AI can draft, it can't sign off</span>
-    review(draft)                      <span class="c">-- every line, by me</span>
+    <span class="k">local</span> draft = tools.assist(change) <span class="c">-- AI can draft</span>
+    review(draft)                      <span class="c">-- I review every line</span>
     <span class="k">assert</span>(understood(draft), <span class="s">"don't ship what you can't explain"</span>)
     playtest(draft)
     <span class="k">return</span> commit(draft)
@@ -167,8 +173,8 @@ rainy@coruscant:~$ <span class="caret-blink">&#9608;</span></pre>
     <button class="lb-next" aria-label="Next">&#8250;</button>
   </div>
 
-  <script src="js/data.js?v=20260927g"></script>
-  <script src="js/lofi.js?v=20260927g"></script>
-  <script src="js/main.js?v=20260927g"></script>
+  <script src="js/data.js?v=20260927h"></script>
+  <script src="js/lofi.js?v=20260927h"></script>
+  <script src="js/main.js?v=20260927h"></script>
 </body>
 </html>
