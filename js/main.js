@@ -113,10 +113,10 @@
           <video muted loop playsinline preload="none" poster="${f.video}.webp" aria-label="${esc(f.title)} gameplay clip">
             <source src="${f.video}.mp4" type="video/mp4">
           </video>
-          <span class="badge">● rec</span>
+          <span class="badge">● rec${f.year ? ` · ${f.year}` : ""}</span>
         </div>
         <div class="info">
-          <span class="kicker">${esc(f.kicker)}</span>
+          <span class="kicker">${esc(f.kicker)}${f.year ? ` · ${f.year}` : ""}</span>
           <h3>${esc(f.title)}</h3>
           <p>${esc(f.body)}</p>
           <div class="tags">${f.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>

@@ -2,44 +2,76 @@
 window.SITE = {
   features: [
     {
+      title: "Ships & Flying Vehicles",
+      year: 2026,
+      kicker: "vehicles",
+      video: "assets/video/ships",
+      body:
+        "Spawn a ship from your personal garage and take off from the landing pad into a full 3D flight model over the Coruscant skyline — engine, ascend and descend controls with a live speed and vehicle-health HUD.",
+      tags: ["Flight controller", "Vehicle garage", "Physics", "HUD"],
+    },
+    {
+      title: "Daily Rewards Calendar",
+      year: 2026,
+      kicker: "retention",
+      video: "assets/video/daily-calendar",
+      body:
+        "A 30-day seasonal calendar with a live season countdown. Rewards mix credits with timed item and class trials (with a prompt to try them straight away), plus an optional unlock-all purchase.",
+      tags: ["Seasons", "Streaks", "Trials", "Monetisation"],
+    },
+    {
+      title: "Skystrike Ability",
+      year: 2026,
+      kicker: "ability",
+      video: "assets/video/skystrike",
+      body:
+        "A call-in air strike. Players enter a top-down targeting camera (WASD to move, Q/E to rotate, scroll for height) with a timed window, confirm the strike, and a gunship flies in to level the area.",
+      tags: ["Custom camera", "Targeting UI", "VFX", "Networking"],
+    },
+    {
+      title: "Interactive Onboarding Tutorial",
+      year: 2026,
+      kicker: "new player experience",
+      video: "assets/video/onboarding",
+      body:
+        "New players arrive as immigrants: queue at the border, hand over a passport and answer the guard's questions (tell the truth or lie), then get guided to the Plaza to join the GAR. Step-by-step tracker, world arrows and a skip option. Clip at 1.6× speed.",
+      tags: ["Onboarding", "Quest tracker", "NPC interaction", "UX"],
+    },
+    {
+      title: "Christmas Event — Missing Gifts",
+      year: 2025,
+      kicker: "seasonal event",
+      video: "assets/video/christmas",
+      body:
+        "Santa dropped his gifts all over Coruscant. Pick one up, follow the arrows and minimap marker to its owner, and earn gift points for Santa's shop plus a credit tip — with a fully decorated winter map.",
+      tags: ["Live event", "NPC dialogue", "Event currency", "Wayfinding"],
+    },
+    {
       title: "Daily Spin",
+      year: 2026,
       kicker: "reward loop",
       video: "assets/video/daily-spin",
       body:
         "A once-a-day crate that rolls a timed weapon loan. Handles the locked → ready → opening → unlocked state machine, server-side cooldowns, a live countdown and an optional skip-the-wait purchase.",
-      tags: ["Luau", "State machine", "UI/UX", "Monetisation"],
+      tags: ["State machine", "Cooldowns", "UI/UX", "Monetisation"],
     },
     {
       title: "Jedi Pizza — Work a Shift",
+      year: 2026,
       kicker: "job system",
       video: "assets/video/pizza-job",
       body:
-        "An NPC-driven job: talk to the chef, clock in, grab the highlighted pizza off a conveyor that matches an open order and deliver it to the right table for credits. Guided by a step-by-step quest tracker, world arrows and minimap pins.",
+        "An NPC-driven job: talk to the chef, clock in, grab the pizza off the conveyor that matches an open order and deliver it to the right table for credits. Guided by a step-by-step quest tracker, world arrows and minimap pins.",
       tags: ["NPC dialogue", "Quest tutorial", "Conveyors", "Economy"],
     },
     {
-      title: "Vehicles & Street Lights",
-      kicker: "daily quest",
-      video: "assets/video/street-lights",
+      title: "Halloween Spin & Win",
+      year: 2025,
+      kicker: "seasonal event",
+      video: "assets/video/halloween-spin",
       body:
-        "A personal garage of hover vehicles with health, speed and boost pads, tied into a quest to ram and destroy street lights around the city. Includes the team-specific Daily Quests board that resets every day.",
-      tags: ["Vehicles", "Physics", "Daily quests", "Garage UI"],
-    },
-    {
-      title: "Guard the Border",
-      kicker: "daily quest",
-      video: "assets/video/border-patrol",
-      body:
-        "A Republic-side duty quest: head to the border, hold a highlighted post and maintain order until the timer runs out — with double-time rewards for staying on post and a proper death/respawn flow when raiders get through.",
-      tags: ["Team roles", "Timers", "Combat", "Rewards"],
-    },
-    {
-      title: "Clone Wars Tycoon",
-      kicker: "prototype",
-      video: "assets/video/tycoon",
-      body:
-        "A standalone tycoon: pick a legion, then build out extractors, droppers and glowing conveyor lines that feed your income. Custom level / XP and cash-multiplier HUD on top.",
-      tags: ["Tycoon framework", "Teams", "Progression", "HUD"],
+        "An event-limited prize board: spin once or ten at a time, watch the reel land, and track progress towards a guaranteed grand prize via a pity counter. Visible odds and an event countdown.",
+      tags: ["Reward board", "Pity system", "Odds display", "Event currency"],
     },
   ],
 
