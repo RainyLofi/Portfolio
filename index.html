@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RainyLofi — Roblox Developer · GAR / SWRP</title>
-  <meta name="description" content="Portfolio of RainyLofi — Roblox gameplay, UI and backend developer. Systems, tools and worlds built for GAR / SWRP.">
+  <title>RainyLofi | Roblox Developer · GAR / SWRP</title>
+  <meta name="description" content="Portfolio of RainyLofi, a Roblox gameplay, UI and backend developer. Systems and tools built for GAR / SWRP.">
   <meta name="theme-color" content="#07070d">
-  <meta property="og:title" content="RainyLofi — Roblox Developer">
+  <meta property="og:title" content="RainyLofi | Roblox Developer">
   <meta property="og:description" content="Gameplay systems, UI and backend tooling built for GAR / SWRP.">
   <meta property="og:image" content="https://rainylofi.xyz/assets/img/og.jpg">
   <meta property="og:url" content="https://rainylofi.xyz/">
@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.add("js");addEventListener("error",()=>document.documentElement.classList.remove("js"));</script>
-  <link rel="stylesheet" href="css/style.css?v=20260927f">
+  <link rel="stylesheet" href="css/style.css?v=20260927g">
 </head>
 <body>
   <canvas id="rain" aria-hidden="true"></canvas>
@@ -38,7 +38,7 @@
   </header>
 
   <div class="radio-panel" id="radioPanel" hidden>
-    <div class="rp-title">&#9835; now playing <span class="dim">— generated live in your browser</span></div>
+    <div class="rp-title">&#9835; now playing <span class="dim">(generated live in your browser)</span></div>
     <label class="rp-row"><input type="checkbox" id="rpBeats" checked> lofi beats</label>
     <label class="rp-row"><input type="checkbox" id="rpRain" checked> rain on the window</label>
     <label class="rp-row">vol <input type="range" id="rpVol" min="0" max="1" step="0.01" value="0.5"></label>
@@ -68,10 +68,11 @@
       <h2 class="h2"><span class="num">01.</span> about<span class="dim">.lua</span></h2>
       <div class="about">
         <div class="about-text reveal">
-          <p>Hey, I'm <strong>RainyLofi</strong> &mdash; a software engineer who spends most nights in Roblox Studio with the rain on and a lo-fi playlist looping in the background. I work full-time at <strong>Blueprint</strong> as a Partner.</p>
+          <p>Hey, I'm <strong>RainyLofi</strong>. I'm a software engineer and I work full-time at <strong>Blueprint</strong> as a Partner. Most nights that means Roblox Studio, rain on the window and a lo-fi playlist on loop.</p>
           <p>Most of my work lives in <strong>GAR</strong> and its <strong>Star Wars roleplay</strong> experiences: gameplay systems, quest &amp; job loops, player economies, game UI, and the backend services and Discord tooling that keep a big community running.</p>
-          <p>I like building things end-to-end &mdash; from the Luau on the server, to the UI a player taps on, to the Node API and database behind it.</p>
-          <div class="avatar-wrap"><img src="assets/img/avatar.webp" alt="RainyLofi avatar — hooded figure with headphones under a rain cloud" class="avatar" loading="lazy" width="320" height="320"></div>
+          <p>I like owning a feature end to end: the server-side Luau, the UI players interact with, and the Node API and database behind it.</p>
+          <p>I do use AI tools (they're in the workflow list), but as tools, not as a substitute for knowing what I'm doing. Everything I ship gets reviewed and tested by me, and I can explain and debug every line of it.</p>
+          <div class="avatar-wrap"><img src="assets/img/avatar.webp" alt="RainyLofi avatar: hooded figure with headphones under a rain cloud" class="avatar" loading="lazy" width="320" height="320"></div>
         </div>
         <div class="code reveal">
           <div class="term-bar"><i></i><i></i><i></i><span>Rainy.lua</span></div>
@@ -101,12 +102,12 @@
     },
 }
 
-<span class="k">function</span> Rainy:build(idea: <span class="t">string</span>)
-    <span class="k">local</span> prototype = Studio.prototype(idea)
-    <span class="k">repeat</span>
-        prototype = playtest(prototype)
-    <span class="k">until</span> prototype.feelsGood
-    <span class="k">return</span> ship(prototype) <span class="c">-- then iterate on feedback</span>
+<span class="k">function</span> Rainy:ship(change)
+    <span class="k">local</span> draft = tools.assist(change) <span class="c">-- AI can draft, it can't sign off</span>
+    review(draft)                      <span class="c">-- every line, by me</span>
+    <span class="k">assert</span>(understood(draft), <span class="s">"don't ship what you can't explain"</span>)
+    playtest(draft)
+    <span class="k">return</span> commit(draft)
 <span class="k">end</span>
 
 <span class="k">return</span> Rainy</code></pre>
@@ -118,7 +119,7 @@
     <!-- FEATURED WORK -->
     <section id="work" class="section">
       <h2 class="h2"><span class="num">02.</span> featured_systems<span class="dim">/</span></h2>
-      <p class="lede">Clips straight from development &mdash; systems I designed and scripted for the GAR / SWRP experiences.</p>
+      <p class="lede">Recorded from development builds. These are systems I designed and scripted for the GAR / SWRP experiences.</p>
       <div class="features" id="features"></div>
 
       <h3 class="h3">more systems</h3>
@@ -132,7 +133,7 @@
     <!-- TOOLS -->
     <section id="tools" class="section">
       <h2 class="h2"><span class="num">03.</span> tools_and_services<span class="dim">.sh</span></h2>
-      <p class="lede">The stuff players never see &mdash; APIs, bots and frameworks that keep things running.</p>
+      <p class="lede">The backend and community tooling behind the games: APIs, Discord bots and internal tools.</p>
       <div class="tools" id="toolsList"></div>
     </section>
 
@@ -143,7 +144,7 @@
         <div class="term-bar"><i></i><i></i><i></i><span>~/contact</span></div>
 <pre class="term-body">rainy@coruscant:~$ <span class="blue">./say-hi.sh</span>
 &gt; Currently working full-time at Blueprint as a Partner.
-&gt; Not open to commissions or new roles right now &mdash;
+&gt; Not open to commissions or new roles right now,
 &gt; but always happy to talk Roblox dev. Find me on GitHub.
 
 rainy@coruscant:~$ <span class="caret-blink">&#9608;</span></pre>
@@ -166,8 +167,8 @@ rainy@coruscant:~$ <span class="caret-blink">&#9608;</span></pre>
     <button class="lb-next" aria-label="Next">&#8250;</button>
   </div>
 
-  <script src="js/data.js?v=20260927f"></script>
-  <script src="js/lofi.js?v=20260927f"></script>
-  <script src="js/main.js?v=20260927f"></script>
+  <script src="js/data.js?v=20260927g"></script>
+  <script src="js/lofi.js?v=20260927g"></script>
+  <script src="js/main.js?v=20260927g"></script>
 </body>
 </html>

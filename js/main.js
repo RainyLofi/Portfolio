@@ -71,11 +71,11 @@
   /* ---------- terminal typewriter ---------- */
   const script = [
     ["cmd", "whoami"],
-    ["out", "RainyLofi — Roblox developer · GAR / SWRP"],
+    ["out", "RainyLofi · Roblox developer · GAR / SWRP"],
     ["cmd", "cat focus.txt"],
     ["out", "gameplay systems · game UI · backend APIs · dev tooling"],
     ["cmd", "cat education.txt"],
-    ["out", "BSc Software Engineering — July 2022"],
+    ["out", "BSc Software Engineering (July 2022)"],
     ["cmd", "play lofi --with rain"],
     ["out", "♪ now playing… (hit “lofi radio” up top)"],
   ];

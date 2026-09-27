@@ -10,7 +10,7 @@ window.Lofi = (() => {
   const BPM = 74;
   const SIX = 60 / BPM / 4; // sixteenth note
   const midi = (n) => 440 * Math.pow(2, (n - 69) / 12);
-  // Dm9 · G13 · Cmaj9 · Am9 — the classic ii-V-I-vi
+  // Dm9, G13, Cmaj9, Am9: a ii-V-I-vi progression
   const CHORDS = [
     [50, 57, 60, 64, 65],
     [43, 53, 57, 59, 64],
