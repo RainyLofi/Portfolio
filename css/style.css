@@ -168,9 +168,9 @@ h1 { font-size: clamp(38px, 6vw, 72px); line-height: 1.04; margin: 0 0 28px; let
 }
 .ingame:hover { border-color: #86efac; transform: translateY(-2px); }
 .ingame img { width: 56px; height: 56px; border-radius: 10px; background: #07111a; }
-.ingame span { display: block; font-family: var(--mono); font-size: 11px; color: #86efac; }
+.ingame span { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: #86efac; }
 .ingame strong { display: block; font-family: var(--mono); color: var(--white); font-size: 14px; }
-.avatar { border-radius: 20px; border: 1px solid var(--line); box-shadow: 0 0 60px rgba(8, 145, 178, 0.25); }
+.avatar { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 20px; border: 1px solid var(--line); box-shadow: 0 0 60px rgba(8, 145, 178, 0.25); }
 .code { background: rgba(7, 16, 24, 0.85); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
 .code pre { margin: 0; padding: 18px 20px; overflow-x: auto; font-family: var(--mono); font-size: 13.5px; line-height: 1.7; color: #cde3ea; }
 .code .k { color: var(--purple); }
