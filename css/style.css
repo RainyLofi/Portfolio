@@ -255,7 +255,17 @@ h1 { font-size: clamp(38px, 6vw, 72px); line-height: 1.04; margin: 0 0 28px; let
 
 /* contact */
 .contact .term.big { max-width: 720px; }
-.contact .term .cta { padding: 0 18px 20px; margin-top: 0; }
+.contacts { list-style: none; margin: 0; padding: 4px 18px 22px; display: grid; gap: 8px; }
+.contacts a {
+  display: grid; grid-template-columns: 22px 92px 1fr; align-items: center; gap: 14px;
+  padding: 11px 14px; border-radius: 10px; border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.02); color: var(--text); font-family: var(--mono); font-size: 14px;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.contacts a:hover { border-color: var(--purple); background: rgba(8, 145, 178, 0.12); transform: translateX(4px); }
+.c-icon { width: 20px; height: 20px; color: var(--purple); }
+.c-label { color: var(--dim); }
+.c-val { color: var(--white); overflow-wrap: anywhere; }
 
 .footer {
   display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px;
@@ -295,6 +305,8 @@ h1 { font-size: clamp(38px, 6vw, 72px); line-height: 1.04; margin: 0 0 28px; let
   .menu-btn { display: block; }
   .radio-btn { margin-left: auto; }
   .radio-label { display: none; }
+  .contacts a { grid-template-columns: 22px 1fr; }
+  .c-label { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
