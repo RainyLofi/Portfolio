@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RainyLofi — Roblox Developer · GAR / SWRP</title>
+  <meta name="description" content="Portfolio of RainyLofi — Roblox gameplay, UI and backend developer. Systems, tools and worlds built for GAR / SWRP.">
+  <meta name="theme-color" content="#07070d">
+  <meta property="og:title" content="RainyLofi — Roblox Developer">
+  <meta property="og:description" content="Gameplay systems, UI and backend tooling built for GAR / SWRP.">
+  <meta property="og:image" content="https://rainylofi.xyz/assets/img/og.jpg">
+  <meta property="og:url" content="https://rainylofi.xyz/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="rain" aria-hidden="true"></canvas>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#top"><span class="brand-drop">&#x1F4A7;</span>rainylofi<span class="dim">.xyz</span><span class="caret">_</span></a>
+    <nav class="links" id="links">
+      <a href="#about">~/about</a>
+      <a href="#work">~/work</a>
+      <a href="#gallery">~/gallery</a>
+      <a href="#tools">~/tools</a>
+      <a href="#contact">~/contact</a>
+    </nav>
+    <button class="radio-btn" id="radioBtn" aria-pressed="false" title="Toggle lo-fi radio">
+      <span class="eq"><i></i><i></i><i></i><i></i></span>
+      <span class="radio-label">lofi radio</span>
+    </button>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">&#9776;</button>
+  </header>
+
+  <div class="radio-panel" id="radioPanel" hidden>
+    <div class="rp-title">&#9835; now playing <span class="dim">— generated live in your browser</span></div>
+    <label class="rp-row"><input type="checkbox" id="rpBeats" checked> lofi beats</label>
+    <label class="rp-row"><input type="checkbox" id="rpRain" checked> rain on the window</label>
+    <label class="rp-row">vol <input type="range" id="rpVol" min="0" max="1" step="0.01" value="0.5"></label>
+  </div>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg" style="background-image:url('assets/img/hero.webp')"></div>
+      <div class="hero-inner">
+        <p class="eyebrow">// roblox developer &middot; GAR / SWRP</p>
+        <h1>Building worlds,<br><span class="grad">one raindrop at a time.</span></h1>
+        <div class="term" aria-label="terminal">
+          <div class="term-bar"><i></i><i></i><i></i><span>rainy@coruscant: ~</span></div>
+          <pre class="term-body" id="term"></pre>
+        </div>
+        <div class="cta">
+          <a class="btn primary" href="#work">view my work</a>
+          <a class="btn" href="#gallery">browse gallery</a>
+        </div>
+      </div>
+      <a class="scroll-hint" href="#about" aria-label="Scroll down">&#8595;</a>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <h2 class="h2"><span class="num">01.</span> about<span class="dim">.lua</span></h2>
+      <div class="about">
+        <div class="about-text reveal">
+          <p>Hey, I'm <strong>RainyLofi</strong> &mdash; a software engineer who spends most nights in Roblox Studio with the rain on and a lo-fi playlist looping in the background.</p>
+          <p>Most of my work lives in <strong>GAR</strong> and its <strong>Star Wars roleplay</strong> experiences: gameplay systems, quest &amp; job loops, player economies, game UI, and the backend services and Discord tooling that keep a big community running.</p>
+          <p>I like building things end-to-end &mdash; from the Luau on the server, to the UI a player taps on, to the Node API and database behind it.</p>
+          <div class="avatar-wrap"><img src="assets/img/avatar.webp" alt="RainyLofi avatar — hooded figure with headphones under a rain cloud" class="avatar" loading="lazy" width="320" height="320"></div>
+        </div>
+        <div class="code reveal">
+          <div class="term-bar"><i></i><i></i><i></i><span>Rainy.lua</span></div>
+<pre><code><span class="k">local</span> Rainy = {
+    alias     = <span class="s">"RainyLofi"</span>,
+    degree    = <span class="s">"BSc Software Engineering"</span>,
+    graduated = <span class="s">"July 2022"</span>,
+    focus     = {
+        <span class="s">"Gameplay systems"</span>,
+        <span class="s">"Game UI / UX"</span>,
+        <span class="s">"Backend APIs &amp; data"</span>,
+        <span class="s">"Dev tooling &amp; bots"</span>,
+    },
+    workflow  = { <span class="s">"Rojo"</span>, <span class="s">"VS Code"</span>, <span class="s">"Git"</span> },
+    fuel      = <span class="s">"lo-fi beats &amp; rainy nights"</span>,
+}
+
+<span class="k">function</span> Rainy:build(idea: <span class="t">string</span>)
+    <span class="k">local</span> prototype = Studio.prototype(idea)
+    <span class="k">repeat</span>
+        prototype = playtest(prototype)
+    <span class="k">until</span> prototype.feelsGood
+    <span class="k">return</span> ship(prototype) <span class="c">-- then iterate on feedback</span>
+<span class="k">end</span>
+
+<span class="k">return</span> Rainy</code></pre>
+        </div>
+      </div>
+      <div class="stack reveal" id="stack"></div>
+    </section>
+
+    <!-- FEATURED WORK -->
+    <section id="work" class="section">
+      <h2 class="h2"><span class="num">02.</span> featured_systems<span class="dim">/</span></h2>
+      <p class="lede">Clips straight from development &mdash; systems I designed and scripted for the GAR / SWRP experiences.</p>
+      <div class="features" id="features"></div>
+
+      <h3 class="h3">more systems</h3>
+      <div class="showcase" id="showcase"></div>
+
+      <h3 class="h3">experiences</h3>
+      <div class="projects" id="projects"></div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" class="section">
+      <h2 class="h2"><span class="num">03.</span> gallery<span class="dim">/*</span></h2>
+      <p class="lede">Environments, interfaces, icons, character renders and branding produced for the community.</p>
+      <div class="filters" id="filters" role="tablist">
+        <button class="on" data-f="all">all</button>
+        <button data-f="env">environments</button>
+        <button data-f="ui">interface</button>
+        <button data-f="art">icons &amp; art</button>
+        <button data-f="char">characters</button>
+        <button data-f="brand">branding</button>
+      </div>
+      <div class="grid" id="grid"></div>
+    </section>
+
+    <!-- TOOLS -->
+    <section id="tools" class="section">
+      <h2 class="h2"><span class="num">04.</span> tools_and_services<span class="dim">.sh</span></h2>
+      <p class="lede">The stuff players never see &mdash; APIs, bots and frameworks that keep things running.</p>
+      <div class="tools" id="toolsList"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section contact">
+      <h2 class="h2"><span class="num">05.</span> contact<span class="dim">()</span></h2>
+      <div class="term big reveal">
+        <div class="term-bar"><i></i><i></i><i></i><span>~/contact</span></div>
+<pre class="term-body">rainy@coruscant:~$ <span class="blue">./say-hi.sh</span>
+&gt; Open to commissions, collabs and full-time Roblox work.
+&gt; Best way to reach me is through GitHub.
+
+rainy@coruscant:~$ <span class="caret-blink">&#9608;</span></pre>
+        <div class="cta">
+          <a class="btn primary" href="https://github.com/RainyLofi" target="_blank" rel="noopener">github.com/RainyLofi</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>&copy; <span id="year"></span> RainyLofi</span>
+    <span class="dim">built by hand &middot; rain in the background &middot; lo-fi on loop</span>
+  </footer>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lb-close" aria-label="Close">&times;</button>
+    <button class="lb-prev" aria-label="Previous">&#8249;</button>
+    <figure><img id="lbImg" alt=""><figcaption id="lbCap"></figcaption></figure>
+    <button class="lb-next" aria-label="Next">&#8250;</button>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/lofi.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
