@@ -115,8 +115,8 @@ window.SITE = {
   tools: [
     {
       name: "gar-bot",
-      lang: "discord.js · Node.js · MongoDB",
-      body: "The GAR community's Discord bot: Roblox account verification and role sync, promotion points and leaderboards, medals, virtual gamepasses and moderation tools — all backed by gar-api.",
+      lang: "discord.js · Node.js · MongoDB · Open Cloud",
+      body: "The GAR community's Discord bot — 45+ slash commands bridging Discord, Roblox, MongoDB and Trello. OAuth account verification with role/nickname sync and autoroles; OPoints, power and raider XP with batch tools and rendered leaderboard images; factions, medals, virtual gamepasses, sales and star codes; blacklists and background checks; and commands relayed into live game servers with replies that update in real time.",
     },
     {
       name: "gar-api",
