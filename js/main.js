@@ -134,7 +134,21 @@
       </div>
     </article>`;
   $("#showcase").innerHTML = S.showcase.map(card).join("");
-  $("#projects").innerHTML = S.projects.map(card).join("");
+  $("#projects").innerHTML = S.projects
+    .map((p) => {
+      const img = `<img src="${p.img}" alt="${esc(p.title)}" loading="lazy">`;
+      const link = (inner, cls = "") => p.url ? `<a class="${cls}" href="${p.url}" target="_blank" rel="noopener">${inner}</a>` : inner;
+      return `
+      <article class="card project reveal">
+        ${link(`<div class="thumb${p.contain ? " contain" : ""}">${img}${p.badge ? `<span class="p-badge">${esc(p.badge)}</span>` : ""}</div>`, "thumb-link")}
+        <div class="body">
+          <h4>${link(esc(p.title))}</h4>
+          <p>${esc(p.body)}</p>
+          ${p.url ? link("play on Roblox &#8599;", "play") : ""}
+        </div>
+      </article>`;
+    })
+    .join("");
 
   $("#toolsList").innerHTML = S.tools
     .map((t) => `
@@ -146,23 +160,6 @@
       </article>`)
     .join("");
 
-  // icons, characters & logos look better centred on a glow than cropped
-  const containCats = new Set(["art", "char", "brand"]);
-  $("#grid").innerHTML = S.gallery
-    .map(([p, cat, cap]) => {
-      const src = `assets/img/${p}.webp`;
-      return `<figure class="tile${containCats.has(cat) ? " contain" : ""}" data-cat="${cat}" data-full="${src}" data-cap="${esc(cap)}">
-        <img src="${src}" alt="${esc(cap)}" loading="lazy"><span>${esc(cap)}</span></figure>`;
-    })
-    .join("");
-
-  $("#filters").addEventListener("click", (e) => {
-    const b = e.target.closest("button");
-    if (!b) return;
-    document.querySelectorAll("#filters button").forEach((x) => x.classList.toggle("on", x === b));
-    const f = b.dataset.f;
-    document.querySelectorAll(".tile").forEach((t) => t.classList.toggle("hide", f !== "all" && t.dataset.cat !== f));
-  });
 
   /* ---------- reveal + video autoplay ---------- */
   const rev = new IntersectionObserver(
