@@ -163,6 +163,72 @@
   const video = (src, label) =>
     `<video muted loop playsinline preload="none" poster="${src}.webp" aria-label="${esc(label)} gameplay clip"><source src="${src}.mp4" type="video/mp4"></video>`;
 
+  /* ---------- skills ---------- */
+  const T0 = 2018, T1 = 2027, NOW = 2026.74;
+  const pos = (t) => (((t - T0) / (T1 - T0)) * 100).toFixed(2) + "%";
+  const icon = (inner) =>
+    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${inner}</svg>`;
+  const years = [];
+  for (let y = T0; y < T1; y++) years.push(y);
+  $("#skillmap").style.setProperty("--ai", pos(S.ai.since));
+  $("#skillmap").innerHTML = `
+    <div class="sm-head" aria-hidden="true">
+      <span></span>
+      <div class="sm-axis">
+        ${years.map((y) => `<span style="left:${pos(y)}">${y}</span>`).join("")}
+        <b class="sm-ai-label" style="left:${pos(S.ai.since)}">AI-assisted &rarr;</b>
+      </div>
+    </div>
+    ${S.skills
+      .map((k, i) => `
+      <div class="sm-row" role="listitem" data-i="${i}" tabindex="0" aria-label="${esc(k.name)}, since ${k.since}">
+        <span class="sm-label">${icon(k.svg)}<span>${esc(k.name)}</span></span>
+        <div class="sm-track">
+          <div class="sm-bar" style="left:${pos(k.items[0][1])};width:calc(${pos(NOW)} - ${pos(k.items[0][1])})"></div>
+          ${k.items
+            .map(([when, t, what]) => `<span class="sm-dot${t >= S.ai.since ? " ai" : ""}" style="left:${pos(t)}" data-tip="${esc(when)} · ${esc(what)}"></span>`)
+            .join("")}
+        </div>
+      </div>`)
+      .join("")}`;
+
+  $("#skillCards").innerHTML = S.skills
+    .map((k, i) => `
+      <article class="skill hud reveal" id="skill-${i}">
+        <header>
+          <span class="s-icon">${icon(k.svg)}</span>
+          <div><h4>${esc(k.name)}</h4><span class="s-since">since ${k.since}</span></div>
+        </header>
+        <p class="s-blurb">${esc(k.blurb)}</p>
+        <ul class="s-items">
+          ${k.items.map(([when, , what]) => `<li><span class="s-when">${esc(when)}</span><span>${esc(what)}</span></li>`).join("")}
+        </ul>
+        <p class="s-learnt"><span>what I learnt</span>${esc(k.learnt)}</p>
+      </article>`)
+    .join("");
+
+  // Clicking (or pressing Enter on) a timeline row jumps to its card and flashes it.
+  const jump = (row) => {
+    const card = $(`#skill-${row.dataset.i}`);
+    card.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+    card.classList.remove("flash");
+    void card.offsetWidth;
+    card.classList.add("flash");
+  };
+  document.querySelectorAll(".sm-row").forEach((row) => {
+    row.addEventListener("click", () => jump(row));
+    row.addEventListener("keydown", (e) => (e.key === "Enter" || e.key === " ") && (e.preventDefault(), jump(row)));
+  });
+
+  $("#aiIntro").textContent = S.ai.intro;
+  $("#aiSteps").innerHTML = S.ai.steps
+    .map(([title, text], i) => `<li><span class="ps-num">${i + 1}</span><div><h4>${esc(title)}</h4><p>${esc(text)}</p></div></li>`)
+    .join("");
+  $("#aiFeats").innerHTML = S.ai.features
+    .map(([when, what]) => `<li><span class="af-hash">feat</span><span class="af-when">${esc(when)}</span><span>${esc(what)}</span></li>`)
+    .join("");
+  $("#aiStat").textContent = S.ai.stat;
+
   $("#projects-list").innerHTML = S.projects
     .map((p) => {
       const link = (inner, cls = "") => (p.url ? `<a class="${cls}" href="${p.url}" target="_blank" rel="noopener">${inner}</a>` : inner);
