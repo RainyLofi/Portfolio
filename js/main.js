@@ -441,6 +441,8 @@
       g.classList.remove("hop");
       g.classList.add("mega");
       window.Lofi.megaHonk();
+      document.documentElement.classList.add("quake"); // the whole page shakes with the honk
+      setTimeout(() => document.documentElement.classList.remove("quake"), 1600);
       setTimeout(() => g.classList.remove("mega"), 2000);
       return;
     }

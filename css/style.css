@@ -533,6 +533,20 @@ h1 { font-size: clamp(38px, 6vw, 72px); line-height: 1.04; margin: 0 0 28px; let
   80% { transform: scale(6); }
   100% { transform: scale(1); }
 }
+/* the page shakes while it honks (not on body, so the fixed nav keeps its place) */
+.quake main, .quake .footer, .quake .nav { animation: quake 1.1s linear 0.25s; }
+@keyframes quake {
+  0%, 100% { transform: none; }
+  10% { transform: translate(-6px, 3px) rotate(-0.3deg); }
+  20% { transform: translate(5px, -4px) rotate(0.3deg); }
+  30% { transform: translate(-5px, -2px); }
+  40% { transform: translate(6px, 3px) rotate(0.2deg); }
+  50% { transform: translate(-4px, 4px) rotate(-0.2deg); }
+  60% { transform: translate(4px, -3px); }
+  70% { transform: translate(-3px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  90% { transform: translate(-1px, 1px); }
+}
 @keyframes waddle {
   0% { transform: translateX(0) scaleX(-1); }
   44% { transform: translateX(-55vw) scaleX(-1); }

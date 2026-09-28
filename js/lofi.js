@@ -246,8 +246,8 @@ window.Lofi = (() => {
       const t = ac.currentTime + 0.25; // land as the goose reaches full size
       const out = ac.createGain();
       out.gain.setValueAtTime(0.0001, t);
-      out.gain.exponentialRampToValueAtTime(0.7, t + 0.05);
-      out.gain.setValueAtTime(0.7, t + 0.8);
+      out.gain.exponentialRampToValueAtTime(0.42, t + 0.05);
+      out.gain.setValueAtTime(0.42, t + 0.8);
       out.gain.exponentialRampToValueAtTime(0.0001, t + 1.3);
       const band = ac.createBiquadFilter();
       band.type = "bandpass";
