@@ -280,6 +280,22 @@ h1 { font-size: clamp(38px, 6vw, 72px); line-height: 1.04; margin: 0 0 28px; let
 .project .play { font-family: var(--mono); font-size: 13px; }
 .project .play:hover { color: var(--white); }
 
+/* earlier work */
+.earlier { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.old {
+  display: flex; flex-direction: column; padding: 16px 18px; border-radius: 12px;
+  background: rgba(7, 16, 24, 0.7); border: 1px solid var(--line); transition: border-color 0.2s, transform 0.2s;
+}
+.old:hover { border-color: rgba(52, 224, 234, 0.4); transform: translateY(-2px); }
+.old-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.old h4 { margin: 0; color: var(--white); font-size: 16px; }
+.old-year { font-family: var(--mono); font-size: 12px; color: var(--purple); }
+.old-role { font-family: var(--mono); font-size: 11px; color: #86efac; margin-top: 2px; }
+.old p { margin: 8px 0 12px; color: #b3c7d0; font-size: 14px; line-height: 1.5; }
+.old-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 12px; }
+.old-stat { color: var(--white); padding: 3px 8px; border-radius: 6px; background: rgba(8, 145, 178, 0.12); }
+.old-foot a:hover { color: var(--white); }
+
 /* skills timeline */
 .skillmap {
   padding: 18px 22px 20px; margin-bottom: 26px;

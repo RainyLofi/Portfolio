@@ -163,6 +163,19 @@
   const video = (src, label) =>
     `<video muted loop playsinline preload="none" poster="${src}.webp" aria-label="${esc(label)} gameplay clip"><source src="${src}.mp4" type="video/mp4"></video>`;
 
+  $("#earlier").innerHTML = S.earlier
+    .map((e) => `
+      <article class="old reveal">
+        <div class="old-top"><h4>${esc(e.title)}</h4><span class="old-year">${esc(e.year)}</span></div>
+        ${e.role ? `<span class="old-role">${esc(e.role)}</span>` : ""}
+        <p>${esc(e.body)}</p>
+        <div class="old-foot">
+          ${e.stat ? `<span class="old-stat">${esc(e.stat)}</span>` : "<span></span>"}
+          ${e.url ? `<a href="${e.url}" target="_blank" rel="noopener">play &#8599;</a>` : ""}
+        </div>
+      </article>`)
+    .join("");
+
   /* ---------- skills ---------- */
   const T0 = 2018, T1 = 2027, NOW = 2026.74;
   const pos = (t) => (((t - T0) / (T1 - T0)) * 100).toFixed(2) + "%";

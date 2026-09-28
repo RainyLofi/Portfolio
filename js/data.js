@@ -12,13 +12,18 @@ window.SITE = {
   skills: [
     {
       "name": "Combat & weapons",
-      "since": 2021,
+      "since": 2020,
       "blurb": "Weapons, hit detection and perks that need to feel fair with a full server.",
       "items": [
         [
-          "2021",
-          2021.4,
-          "Tool system with ammo, heat and reloads"
+          "2020",
+          2020.5,
+          "Serbian Resistance: guns with ammo, heat and reloads"
+        ],
+        [
+          "May 2021",
+          2021.35,
+          "Extreme Sword Fighting: teams, duels and NPC waves"
         ],
         [
           "Jan 2023",
@@ -36,11 +41,6 @@ window.SITE = {
           "Raycast and bullet system rework"
         ],
         [
-          "Nov 2023",
-          2023.87,
-          "Ping estimation system"
-        ],
-        [
           "Jun 2024",
           2024.45,
           "Flamethrower with a teamkill policy"
@@ -51,9 +51,14 @@ window.SITE = {
     },
     {
       "name": "Roleplay systems",
-      "since": 2023,
+      "since": 2019,
       "blurb": "The rules of the city: law and crime, jobs, ranks and progression.",
       "items": [
+        [
+          "Nov 2019",
+          2019.85,
+          "Gulag Indoc Zone for TSU divisions (175K+ visits)"
+        ],
         [
           "Mar 2023",
           2023.2,
@@ -78,11 +83,6 @@ window.SITE = {
           "Jan 2025",
           2025.05,
           "Credit and robbery overhaul"
-        ],
-        [
-          "Jun 2025",
-          2025.45,
-          "Janitor job and random events"
         ]
       ],
       "learnt": "Roleplay systems are social rules turned into code. The edge cases come from players, so I ship, watch how it's played and adjust.",
@@ -96,7 +96,7 @@ window.SITE = {
         [
           "Oct 2020",
           2020.77,
-          "TIC anti-cheat: encrypted client checks, Discord logs"
+          "Anti-cheat with AES-128 encrypted client/server checks"
         ],
         [
           "May 2021",
@@ -133,6 +133,11 @@ window.SITE = {
       "blurb": "Interfaces and first-time flows that players understand without reading.",
       "items": [
         [
+          "2021",
+          2021.2,
+          "Speed Town rewrite: new UI and a race system (hired)"
+        ],
+        [
           "Jul 2021",
           2021.55,
           "Minimap renderer experiment"
@@ -151,11 +156,6 @@ window.SITE = {
           "Sep 2023",
           2023.7,
           "First tutorial system"
-        ],
-        [
-          "Apr 2025",
-          2025.28,
-          "New promotion UI"
         ],
         [
           "Dec 2025",
@@ -182,9 +182,9 @@ window.SITE = {
           "Pathfinding guard bots that move in formation"
         ],
         [
-          "Nov 2023",
-          2023.85,
-          "NPC chatter on TextChatService"
+          "May 2021",
+          2021.35,
+          "\"Raining noobs\" NPC battle mode"
         ],
         [
           "Jun 2024",
@@ -314,13 +314,23 @@ window.SITE = {
     },
     {
       "name": "Backend & integrations",
-      "since": 2021,
+      "since": 2020,
       "blurb": "Services that connect the game, the database and Discord.",
       "items": [
         [
-          "Jul 2021",
-          2021.57,
-          "HTTP layer with Trello and group integrations"
+          "2020",
+          2020.55,
+          "PHP/MySQL web tools for Roblox groups"
+        ],
+        [
+          "Dec 2020",
+          2020.97,
+          "Background Checkatron: player risk checks via Roblox's web API"
+        ],
+        [
+          "2021",
+          2021.3,
+          "Initor: Discord bot tracking activity and promotions"
         ],
         [
           "Jan 2023",
@@ -331,11 +341,6 @@ window.SITE = {
           "2023",
           2023.15,
           "gar-bot, with another developer"
-        ],
-        [
-          "Nov 2023",
-          2023.86,
-          "Bot write requests into live servers"
         ],
         [
           "Aug 2025",
@@ -548,6 +553,24 @@ window.SITE = {
     },
   ],
 
+  // From the 2021 portfolio; visits checked against Roblox where the game still exists.
+  earlier: [
+    { title: "Gulag Indoc Zone", year: "2019", stat: "175K+ visits", url: "https://www.roblox.com/games/4341517525/Gulag-Indoc-Zone",
+      body: "A game for the TSU community's groups and divisions to punish members." },
+    { title: "Speed Town", year: "2021", stat: "981K+ visits at the time", role: "hired",
+      body: "Rewrote the game, fixed up the UI and built a race system." },
+    { title: "Background Checkatron", year: "2020", stat: "45K+ visits", url: "https://www.roblox.com/games/6123736747/Background-Checkatron-BUG-FIXES",
+      body: "Pulls a player's history from Roblox's web API and works out how risky they are." },
+    { title: "Extreme Sword Fighting", year: "2021", url: "https://www.roblox.com/games/6773968330/NOOBS-Extreme-Sword-Fighting-BETA",
+      body: "A sword fighting game with team, duel and NPC battle modes, protected by my anti-cheat." },
+    { title: "Serbian Resistance", year: "2020", role: "with a friend", url: "https://www.roblox.com/games/4897309026/Serbian-Resistance-game-WIP",
+      body: "They made the models; I built the UI, the guns and the rest of the programming." },
+    { title: "Initor", year: "2021", role: "discord.js",
+      body: "A Discord bot that tracked players' online time, joins, leaves, promotions and demotions across divisions." },
+    { title: "Group web tools", year: "2020", role: "PHP · MySQL",
+      body: "Web apps for Roblox groups: a member finder, raider history search and uniform, audio and AOS checkers." },
+  ],
+
   places: ["Coruscant", "Kamino", "Hub", "Battlegrounds", "Boss Fight", "Rally Point", "AFK Zone"],
 
   practices: [
@@ -616,7 +639,11 @@ window.SITE = {
 
   // Newest last; rendered like `git log --oneline --reverse`.
   log: [
+    ["~2014", "Started scripting in Roblox's Script Builder"],
+    ["2019", "Gulag Indoc Zone for the TSU community (175K+ visits)"],
+    ["2020", "First anti-cheat; PHP/MySQL web tools for Roblox groups"],
     ["~2020", "Started developing Star Wars: Roleplay for GAR"],
+    ["2021", "Hired to rewrite Speed Town (981K+ visits); Extreme Sword Fighting; Initor bot"],
     ["Jul 2022", "Graduated: BSc Software Engineering"],
     ["Sep 2022", "Began the Coruscant rework: one codebase for every place"],
     ["2023", "Built gar-api and gar-bot with another developer"],
