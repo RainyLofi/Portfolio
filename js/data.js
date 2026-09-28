@@ -648,6 +648,7 @@ window.SITE = {
     ["2021", "Extreme Sword Fighting; Initor bot"],
     ["Jul 2022", "Graduated: BSc Software Engineering"],
     ["Sep 2022", "Began the Coruscant rework: one codebase for every place"],
+    ["Sep 2022", "Invited to RDC 2022, the Roblox Developers Conference, in San Francisco"],
     ["2023", "Built gar-api and gar-bot with another developer"],
     ["2025", "Seasonal live events: Halloween Spin & Win, Christmas Missing Gifts"],
     ["2026", "Flight, Skystrike, onboarding and daily rewards; started Clone Wars Tycoon"],

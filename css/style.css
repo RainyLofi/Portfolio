@@ -158,6 +158,21 @@ h1 { font-size: clamp(38px, 6vw, 72px); line-height: 1.04; margin: 0 0 28px; let
 .about { display: grid; grid-template-columns: 1fr 1.05fr; gap: 40px; align-items: start; margin-top: 30px; }
 .about-text p { margin: 0 0 16px; font-size: 17px; }
 .about-text strong { color: var(--white); }
+.rdc {
+  position: relative; margin: 8px 0 28px; border-radius: 14px; overflow: hidden; cursor: zoom-in;
+  border: 1px solid var(--line); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+.rdc img { width: 100%; height: auto; aspect-ratio: 1280 / 597; object-fit: cover; transition: transform 0.6s; }
+.rdc:hover img { transform: scale(1.03); }
+.rdc figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 14px 10px;
+  background: linear-gradient(0deg, rgba(5, 11, 18, 0.92), transparent);
+  font-family: var(--mono); font-size: 12px; color: var(--white);
+}
+.rdc figcaption span {
+  display: inline-block; margin-right: 8px; padding: 2px 7px; border-radius: 6px;
+  background: rgba(134, 239, 172, 0.15); border: 1px solid rgba(134, 239, 172, 0.5); color: #86efac; font-size: 11px;
+}
 .avatar-wrap { position: relative; width: min(260px, 70%); margin-top: 24px; }
 .ingame {
   position: absolute; right: -18px; bottom: -18px; display: flex; align-items: center; gap: 10px;
