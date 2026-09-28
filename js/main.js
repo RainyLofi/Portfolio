@@ -2,20 +2,26 @@
   const S = window.SITE;
   const $ = (s, r = document) => r.querySelector(s);
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+  const tags = (list) => `<div class="tags">${list.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>`;
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
   $("#year").textContent = new Date().getFullYear();
 
   /* ---------- rain canvas ---------- */
+  // Heavier rain and splashes while the radio's rain track is playing.
   const cv = $("#rain");
   const ctx = cv.getContext("2d");
   let drops = [];
+  let splashes = [];
+  let intensity = 1;
+  let target = 1;
   function sizeRain() {
     const dpr = Math.min(devicePixelRatio || 1, 2);
     cv.width = innerWidth * dpr;
     cv.height = innerHeight * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const n = Math.round((innerWidth * innerHeight) / 9000);
+    const n = Math.round((innerWidth * innerHeight) / 5000);
     drops = Array.from({ length: n }, () => newDrop(true));
   }
   function newDrop(anywhere) {
@@ -26,13 +32,17 @@
       len: 8 + z * 18,
       v: 4 + z * 9,
       a: 0.08 + z * 0.35,
+      z,
       c: Math.random() < 0.6 ? "52,224,234" : "147,197,253",
     };
   }
   function rain() {
+    intensity += (target - intensity) * 0.02;
+    const active = Math.floor(drops.length * Math.min(1, 0.55 * intensity));
     ctx.clearRect(0, 0, innerWidth, innerHeight);
     ctx.lineWidth = 1;
-    for (const d of drops) {
+    for (let i = 0; i < active; i++) {
+      const d = drops[i];
       ctx.strokeStyle = `rgba(${d.c},${d.a})`;
       ctx.beginPath();
       ctx.moveTo(d.x, d.y);
@@ -40,8 +50,24 @@
       ctx.stroke();
       d.y += d.v;
       d.x -= d.v * 0.15;
-      if (d.y > innerHeight) Object.assign(d, newDrop(false));
+      if (d.y > innerHeight) {
+        if (d.z > 0.55 && splashes.length < 120) {
+          for (let k = 0; k < 3; k++) {
+            splashes.push({ x: d.x, y: innerHeight - 2, vx: (Math.random() - 0.5) * 2.4, vy: -1.5 - Math.random() * 2, life: 1, c: d.c });
+          }
+        }
+        Object.assign(d, newDrop(false));
+      }
     }
+    for (const s of splashes) {
+      s.x += s.vx;
+      s.y += s.vy;
+      s.vy += 0.18;
+      s.life -= 0.04;
+      ctx.fillStyle = `rgba(${s.c},${Math.max(0, s.life) * 0.5})`;
+      ctx.fillRect(s.x, s.y, 1.5, 1.5);
+    }
+    splashes = splashes.filter((s) => s.life > 0);
     requestAnimationFrame(rain);
   }
   if (!reduced) {
@@ -68,16 +94,44 @@
   );
   document.querySelectorAll("main section[id]").forEach((s) => spy.observe(s));
 
+  /* ---------- live stats ---------- */
+  const compact = (n) => {
+    if (n >= 1e6) return (n / 1e6).toFixed(n >= 1e8 ? 0 : 1).replace(/\.0$/, "") + "M";
+    if (n >= 1e3) return Math.round(n / 1e3) + "K";
+    return String(n);
+  };
+  let stats = { ...S.stats };
+  function renderStats(animate) {
+    document.querySelectorAll("[data-stat]").forEach((el) => {
+      const end = stats[el.dataset.stat];
+      if (end == null) return;
+      if (!animate || reduced) { el.textContent = compact(end); return; }
+      const t0 = performance.now();
+      const step = (t) => {
+        const p = Math.min(1, (t - t0) / 1400);
+        el.textContent = compact(Math.round(end * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  }
+  renderStats(true);
+  fetch("data/stats.json", { cache: "no-store" })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((live) => {
+      // ignore data older than a day so a broken cron never shows stale "playing now" numbers
+      if (live && Date.now() / 1000 - live.updated < 86400) { stats = { ...stats, ...live }; renderStats(false); }
+    })
+    .catch(() => {});
+
   /* ---------- terminal typewriter ---------- */
   const script = [
     ["cmd", "whoami"],
-    ["out", "RainyLofi · Roblox developer · GAR / SWRP"],
-    ["cmd", "cat focus.txt"],
-    ["out", "gameplay systems · game UI · backend APIs · dev tooling"],
-    ["cmd", "cat education.txt"],
-    ["out", "BSc Software Engineering (July 2022)"],
+    ["out", "RainyLofi · developer of Star Wars: Roleplay · Partner @ Blueprint"],
+    ["cmd", "cat stack.txt"],
+    ["out", "luau · rojo · node.js · express · mongodb · discord.js"],
     ["cmd", "play lofi --with rain"],
-    ["out", "♪ now playing… (hit “lofi radio” up top)"],
+    ["out", "♪ hit “lofi radio” up top"],
   ];
   const term = $("#term");
   async function type() {
@@ -100,68 +154,114 @@
     }
     term.innerHTML = html + prompt + '<span class="caret-blink">█</span>';
   }
-  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   type();
 
   /* ---------- content ---------- */
-  $("#stack").innerHTML = S.stack.map((s) => `<span class="pill">${esc(s)}</span>`).join("");
+  const video = (src, label) =>
+    `<video muted loop playsinline preload="none" poster="${src}.webp" aria-label="${esc(label)} gameplay clip"><source src="${src}.mp4" type="video/mp4"></video>`;
 
-  $("#features").innerHTML = S.features
-    .map((f) => `
-      <article class="feature reveal">
-        <div class="media">
-          <video muted loop playsinline preload="none" poster="${f.video}.webp" aria-label="${esc(f.title)} gameplay clip">
-            <source src="${f.video}.mp4" type="video/mp4">
-          </video>
-          <span class="badge">● rec${f.year ? ` · ${f.year}` : ""}</span>
-        </div>
-        <div class="info">
-          <span class="kicker">${esc(f.kicker)}${f.year ? ` · ${f.year}` : ""}</span>
-          <h3>${esc(f.title)}</h3>
-          <p>${esc(f.body)}</p>
-          <div class="tags">${f.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>
-        </div>
-      </article>`)
-    .join("");
-
-  const card = (c) => `
-    <article class="card reveal">
-      ${c.video
-        ? `<div class="thumb media-thumb"><video muted loop playsinline preload="none" poster="${c.video}.webp" aria-label="${esc(c.title)} clip"><source src="${c.video}.mp4" type="video/mp4"></video></div>`
-        : `<div class="thumb" data-full="${c.img}" data-cap="${esc(c.title)}"><img src="${c.img}" alt="${esc(c.title)}" loading="lazy"></div>`}
-      <div class="body">
-        <h4>${esc(c.title)}</h4>
-        <p>${esc(c.body)}</p>
-        ${c.tags ? `<div class="tags">${c.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}</div>` : ""}
-      </div>
-    </article>`;
-  $("#showcase").innerHTML = S.showcase.map(card).join("");
-  $("#projects").innerHTML = S.projects
+  $("#projects-list").innerHTML = S.projects
     .map((p) => {
-      const img = `<img src="${p.img}" alt="${esc(p.title)}" loading="lazy">`;
-      const link = (inner, cls = "") => p.url ? `<a class="${cls}" href="${p.url}" target="_blank" rel="noopener">${inner}</a>` : inner;
+      const link = (inner, cls = "") => (p.url ? `<a class="${cls}" href="${p.url}" target="_blank" rel="noopener">${inner}</a>` : inner);
+      const thumb = `<div class="thumb"><img src="${p.img}" alt="${esc(p.title)}" loading="lazy">${p.badge ? `<span class="p-badge">${esc(p.badge)}</span>` : ""}</div>`;
+      const live = p.featured
+        ? `<div class="p-stats">
+            <div><b data-stat="visits"></b><span>visits</span></div>
+            <div><b data-stat="favorites"></b><span>favourites</span></div>
+            <div><b data-stat="rating"></b><span>% liked</span></div>
+            <div><b data-stat="groupMembers"></b><span>group members</span></div>
+            ${(p.facts || []).map(([n, l]) => `<div><b>${esc(n)}</b><span>${esc(l)}</span></div>`).join("")}
+          </div>`
+        : "";
       return `
-      <article class="card project reveal">
-        ${link(`<div class="thumb${p.contain ? " contain" : ""}">${img}${p.badge ? `<span class="p-badge">${esc(p.badge)}</span>` : ""}</div>`, "thumb-link")}
+      <article class="card project hud${p.featured ? " featured" : ""} reveal">
+        ${link(thumb, "thumb-link")}
         <div class="body">
           <h4>${link(esc(p.title))}</h4>
           <p>${esc(p.body)}</p>
+          ${live}
           ${p.url ? link("play on Roblox &#8599;", "play") : ""}
         </div>
       </article>`;
     })
+    .join("");
+  renderStats(false);
+
+  $("#features").innerHTML = S.features
+    .map((f) => `
+      <article class="feature hud${f.lead ? " lead" : ""} reveal">
+        <div class="media">
+          ${video(f.video, f.title)}
+          <span class="badge">● rec · ${f.year}</span>
+        </div>
+        <div class="info">
+          <span class="kicker">${esc(f.kicker)}</span>
+          <h3>${esc(f.title)}</h3>
+          <p>${esc(f.body)}</p>
+          ${tags(f.tags)}
+        </div>
+      </article>`)
+    .join("");
+
+  $("#showcase").innerHTML = S.showcase
+    .map((c) => `
+      <article class="card hud reveal">
+        ${c.video
+          ? `<div class="thumb media-thumb">${video(c.video, c.title)}</div>`
+          : `<div class="thumb" data-full="${c.img}" data-cap="${esc(c.title)}"><img src="${c.img}" alt="${esc(c.title)}" loading="lazy"></div>`}
+        <div class="body">
+          <h4>${esc(c.title)}</h4>
+          <p>${esc(c.body)}</p>
+          ${tags(c.tags)}
+        </div>
+      </article>`)
+    .join("");
+
+  $("#places").innerHTML = S.places.map((p) => `<span class="place">${esc(p)}</span>`).join("");
+
+  $("#practices").innerHTML = S.practices
+    .map((p, i) => `
+      <article class="practice reveal">
+        <span class="p-num">${String(i + 1).padStart(2, "0")}</span>
+        <h4>${esc(p.title)}</h4>
+        <p>${esc(p.body)}</p>
+      </article>`)
     .join("");
 
   $("#toolsList").innerHTML = S.tools
     .map((t) => `
       <article class="tool reveal">
         <div class="cmd"><b>$</b> cd ~/projects/${esc(t.name)}</div>
-        <h4>${t.icon ? `<img src="${t.icon}" alt="" loading="lazy">` : ""}${esc(t.name)}</h4>
+        <h4>${t.icon ? `<img src="${t.icon}" alt="" loading="lazy">` : ""}${esc(t.name)}${t.note ? `<span class="t-note">${esc(t.note)}</span>` : ""}</h4>
         <div class="lang">${esc(t.lang)}</div>
         <p>${esc(t.body)}</p>
       </article>`)
     .join("");
 
+  $("#stackList").innerHTML = Object.entries(S.stack)
+    .map(([group, items]) => `
+      <div class="stack-group">
+        <span class="stack-key">${esc(group)} =</span>
+        <div class="stack-items">${items.map((s) => `<span class="pill">${esc(s)}</span>`).join("")}</div>
+      </div>`)
+    .join("");
+
+  // Short hashes derived from the text, so they stay stable between visits.
+  const hash = (s) => {
+    let h = 2166136261;
+    for (const ch of s) h = Math.imul(h ^ ch.charCodeAt(0), 16777619);
+    return (h >>> 0).toString(16).padStart(8, "0").slice(0, 7);
+  };
+  $("#logList").innerHTML = [...S.log]
+    .reverse()
+    .map(([when, msg, ref]) => `
+      <li>
+        <span class="l-hash">${hash(when + msg)}</span>
+        ${ref ? `<span class="l-ref">(${esc(ref)})</span>` : ""}
+        <span class="l-when">${esc(when)}</span>
+        <span class="l-msg">${esc(msg)}</span>
+      </li>`)
+    .join("");
 
   /* ---------- reveal + video autoplay ---------- */
   const rev = new IntersectionObserver(
@@ -180,7 +280,7 @@
     }),
     { threshold: 0.35 }
   );
-  document.querySelectorAll(".feature video, .card video").forEach((v) => {
+  document.querySelectorAll("main video").forEach((v) => {
     vids.observe(v);
     if (reduced) v.controls = true;
   });
@@ -200,7 +300,7 @@
   document.addEventListener("click", (e) => {
     const t = e.target.closest("[data-full]");
     if (!t) return;
-    list = [...document.querySelectorAll("[data-full]")].filter((el) => !el.classList.contains("hide"));
+    list = [...document.querySelectorAll("[data-full]")];
     show(list.indexOf(t));
     lb.hidden = false;
     document.body.style.overflow = "hidden";
@@ -220,17 +320,41 @@
   /* ---------- lofi radio ---------- */
   const btn = $("#radioBtn");
   const panel = $("#radioPanel");
+  const bars = [...document.querySelectorAll("#eq i")];
+  let playing = false;
+  function meter() {
+    if (!playing) { bars.forEach((b) => (b.style.height = "")); return; }
+    const lv = window.Lofi.levels(bars.length);
+    bars.forEach((b, i) => (b.style.height = `${20 + lv[i] * 80}%`));
+    requestAnimationFrame(meter);
+  }
+  const syncRain = () => (target = playing && $("#rpRain").checked ? 2 : 1);
   btn.addEventListener("click", () => {
-    const on = btn.getAttribute("aria-pressed") !== "true";
-    btn.setAttribute("aria-pressed", on);
-    panel.hidden = !on;
-    if (on) window.Lofi.start({ beats: $("#rpBeats").checked, rain: $("#rpRain").checked, vol: +$("#rpVol").value });
-    else window.Lofi.stop();
+    playing = btn.getAttribute("aria-pressed") !== "true";
+    btn.setAttribute("aria-pressed", playing);
+    panel.hidden = !playing;
+    if (playing) {
+      window.Lofi.start({ beats: $("#rpBeats").checked, rain: $("#rpRain").checked, vol: +$("#rpVol").value });
+      requestAnimationFrame(meter);
+    } else window.Lofi.stop();
+    syncRain();
   });
   $("#rpBeats").addEventListener("change", (e) => window.Lofi.set({ beats: e.target.checked }));
-  $("#rpRain").addEventListener("change", (e) => window.Lofi.set({ rain: e.target.checked }));
+  $("#rpRain").addEventListener("change", (e) => { window.Lofi.set({ rain: e.target.checked }); syncRain(); });
   $("#rpVol").addEventListener("input", (e) => window.Lofi.set({ vol: +e.target.value }));
   document.addEventListener("click", (e) => {
     if (!panel.hidden && !panel.contains(e.target) && !btn.contains(e.target)) panel.hidden = true;
+  });
+
+  /* ---------- goose ---------- */
+  const goose = $("#goose");
+  let honks = 0;
+  goose.addEventListener("click", () => {
+    honks++;
+    window.Lofi.honk();
+    goose.classList.remove("hop");
+    void goose.offsetWidth; // restart the animation
+    goose.classList.add("hop");
+    goose.title = honks === 1 ? "honk" : `honk ×${honks}`;
   });
 })();

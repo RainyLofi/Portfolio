@@ -9,3 +9,7 @@ Plain static site (no build step): `index.html`, `css/`, `js/`, `assets/`.
 - **Deploy:** bump the `?v=` version on the CSS/JS and replaced-image links in `index.html` (Cloudflare caches them for hours), push to `main`, then on the VPS: `cd /var/www/Portfolio && git pull`
 
 The lo-fi radio is generated live with the Web Audio API (`js/lofi.js`), so there are no audio files.
+
+## Live game stats
+
+`tools/update_stats.py` pulls public Roblox stats (visits, favourites, players online, rating, GAR group members) into `data/stats.json`. The VPS runs it hourly from cron; the site falls back to the numbers in `js/data.js` if the file is missing or older than a day. `data/` is gitignored.

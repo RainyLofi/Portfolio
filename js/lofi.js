@@ -1,7 +1,7 @@
 // Tiny generative lo-fi + rain machine. Everything is synthesised live with WebAudio,
 // so there are no audio files to download (or licence).
 window.Lofi = (() => {
-  let ac, master, beatsBus, rainBus, timer, stopTimer, hitBuf, rainSrc, crackleSrc;
+  let ac, master, analyser, bins, beatsBus, rainBus, timer, stopTimer, hitBuf, rainSrc, crackleSrc;
   let state = { beats: true, rain: true, vol: 0.5 };
   let step = 0;
   let nextTime = 0;
@@ -31,11 +31,18 @@ window.Lofi = (() => {
     return buf;
   }
 
+  const ctx = () => ac || (ac = new (window.AudioContext || window.webkitAudioContext)());
+
   function init() {
-    ac = new (window.AudioContext || window.webkitAudioContext)();
+    ctx();
     master = ac.createGain();
     const comp = ac.createDynamicsCompressor();
-    master.connect(comp).connect(ac.destination);
+    // the analyser feeds the nav equaliser bars
+    analyser = ac.createAnalyser();
+    analyser.fftSize = 64;
+    analyser.smoothingTimeConstant = 0.8;
+    bins = new Uint8Array(analyser.frequencyBinCount);
+    master.connect(comp).connect(analyser).connect(ac.destination);
 
     // warm "tape" low-pass on the music bus
     beatsBus = ac.createGain();
@@ -174,7 +181,7 @@ window.Lofi = (() => {
   }
 
   function apply() {
-    if (!ac) return;
+    if (!master) return;
     const now = ac.currentTime;
     master.gain.setTargetAtTime(state.vol * 0.8, now, 0.2);
     beatsBus.gain.setTargetAtTime(state.beats ? 1 : 0, now, 0.3);
@@ -185,7 +192,7 @@ window.Lofi = (() => {
     start(opts) {
       Object.assign(state, opts);
       clearTimeout(stopTimer);
-      if (!ac) init();
+      if (!master) init();
       ac.resume();
       master.gain.value = 0;
       apply();
@@ -194,10 +201,44 @@ window.Lofi = (() => {
       timer = setInterval(schedule, 40);
     },
     stop() {
-      if (!ac) return;
+      if (!master) return;
       clearInterval(timer);
       master.gain.setTargetAtTime(0, ac.currentTime, 0.2);
       stopTimer = setTimeout(() => ac.suspend(), 900);
+    },
+    // Spread the spectrum into n bands, 0..1 each.
+    levels(n) {
+      if (!analyser) return new Array(n).fill(0);
+      analyser.getByteFrequencyData(bins);
+      const per = Math.floor(bins.length / n);
+      return Array.from({ length: n }, (_, i) => {
+        let sum = 0;
+        for (let j = i * per; j < (i + 1) * per; j++) sum += bins[j];
+        return sum / per / 255;
+      });
+    },
+    // A short synthesised goose honk; works whether or not the radio is on.
+    honk() {
+      ctx().resume();
+      const t = ac.currentTime;
+      const out = ac.createGain();
+      out.gain.setValueAtTime(0.0001, t);
+      out.gain.exponentialRampToValueAtTime(0.25, t + 0.02);
+      out.gain.exponentialRampToValueAtTime(0.0001, t + 0.28);
+      const band = ac.createBiquadFilter();
+      band.type = "bandpass";
+      band.frequency.value = 1100;
+      band.Q.value = 1.2;
+      band.connect(out).connect(ac.destination);
+      [1, 1.5].forEach((m) => {
+        const o = ac.createOscillator();
+        o.type = "sawtooth";
+        o.frequency.setValueAtTime(420 * m, t);
+        o.frequency.exponentialRampToValueAtTime(300 * m, t + 0.25);
+        o.connect(band);
+        o.start(t);
+        o.stop(t + 0.3);
+      });
     },
     set(opts) {
       Object.assign(state, opts);
