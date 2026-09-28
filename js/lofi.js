@@ -218,7 +218,7 @@ window.Lofi = (() => {
       });
     },
     // A short synthesised goose honk; works whether or not the radio is on.
-    honk() {
+    honk(pitch = 1) {
       ctx().resume();
       const t = ac.currentTime;
       const out = ac.createGain();
@@ -233,8 +233,8 @@ window.Lofi = (() => {
       [1, 1.5].forEach((m) => {
         const o = ac.createOscillator();
         o.type = "sawtooth";
-        o.frequency.setValueAtTime(420 * m, t);
-        o.frequency.exponentialRampToValueAtTime(300 * m, t + 0.25);
+        o.frequency.setValueAtTime(420 * m * pitch, t);
+        o.frequency.exponentialRampToValueAtTime(300 * m * pitch, t + 0.25);
         o.connect(band);
         o.start(t);
         o.stop(t + 0.3);

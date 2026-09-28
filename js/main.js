@@ -351,14 +351,16 @@
   });
 
   /* ---------- goose ---------- */
-  const goose = $("#goose");
+  // Every goose shares the footer goose's drawing; data-pitch makes the small one honk higher.
+  const geese = [...document.querySelectorAll(".goose")];
+  geese.forEach((g) => { if (!g.innerHTML.trim()) g.innerHTML = $("#goose").innerHTML; });
   let honks = 0;
-  goose.addEventListener("click", () => {
+  geese.forEach((g) => g.addEventListener("click", () => {
     honks++;
-    window.Lofi.honk();
-    goose.classList.remove("hop");
-    void goose.offsetWidth; // restart the animation
-    goose.classList.add("hop");
-    goose.title = honks === 1 ? "honk" : `honk ×${honks}`;
-  });
+    window.Lofi.honk(+g.dataset.pitch || 1);
+    g.classList.remove("hop");
+    void g.offsetWidth; // restart the animation
+    g.classList.add("hop");
+    geese.forEach((x) => (x.title = honks === 1 ? "honk" : `honk ×${honks}`));
+  }));
 })();
