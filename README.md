@@ -1,5 +1,7 @@
 # rainylofi.xyz
 
+**Live site: [https://rainylofi.xyz](https://rainylofi.xyz)**
+
 Personal portfolio: Roblox systems, UI and tooling built for GAR / SWRP.
 
 Plain static site (no build step): `index.html`, `css/`, `js/`, `assets/`.
