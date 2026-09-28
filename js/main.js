@@ -170,13 +170,11 @@
     `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${inner}</svg>`;
   const years = [];
   for (let y = T0; y < T1; y++) years.push(y);
-  $("#skillmap").style.setProperty("--ai", pos(S.ai.since));
   $("#skillmap").innerHTML = `
     <div class="sm-head" aria-hidden="true">
       <span></span>
       <div class="sm-axis">
         ${years.map((y) => `<span style="left:${pos(y)}">${y}</span>`).join("")}
-        <b class="sm-ai-label" style="left:${pos(S.ai.since)}">AI-assisted &rarr;</b>
       </div>
     </div>
     ${S.skills
@@ -186,7 +184,7 @@
         <div class="sm-track">
           <div class="sm-bar" style="left:${pos(k.items[0][1])};width:calc(${pos(NOW)} - ${pos(k.items[0][1])})"></div>
           ${k.items
-            .map(([when, t, what]) => `<span class="sm-dot${t >= S.ai.since ? " ai" : ""}" style="left:${pos(t)}" data-tip="${esc(when)} · ${esc(what)}"></span>`)
+            .map(([when, t, what]) => `<span class="sm-dot" style="left:${pos(t)}" data-tip="${esc(when)} · ${esc(what)}"></span>`)
             .join("")}
         </div>
       </div>`)

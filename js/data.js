@@ -349,8 +349,7 @@ window.SITE = {
   ],
 
   ai: {
-    "since": 2026.0,
-    "intro": "AI agents joined my workflow in 2026. I treat them like a fast junior developer: they get written rules, a test environment and a code review before anything ships.",
+    "intro": "AI agents are part of how I build, and I treat them like a fast junior developer: they get written rules, a test environment and a code review before anything ships.",
     "steps": [
       [
         "Rules first",
@@ -427,7 +426,7 @@ window.SITE = {
         "Claimable areas and the Crystal Forge"
       ]
     ],
-    "stat": "398 commits so far in 2026 · update logs shipped most weeks since July"
+    "stat": "recent highlights · shipped with update logs most weeks"
   },
 
   features: [
