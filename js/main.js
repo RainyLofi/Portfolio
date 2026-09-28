@@ -435,9 +435,9 @@
   geese.forEach((g) => g.addEventListener("click", () => {
     if (g.classList.contains("mega")) return;
     honks++;
-    // every tenth click on the same goose: it grows huge and lets out one deep honk
+    // every fifteenth click on the same goose: it grows huge and lets out one deep honk
     g.clicks = (g.clicks || 0) + 1;
-    if (g.clicks % 10 === 0) {
+    if (g.clicks % 15 === 0) {
       g.classList.remove("hop");
       g.classList.add("mega");
       window.Lofi.megaHonk();
