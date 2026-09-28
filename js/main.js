@@ -101,13 +101,16 @@
     return String(n);
   };
   let stats = { ...S.stats };
+  let gen = 0; // bumps on every render so an in-flight count-up never overwrites newer numbers
   function renderStats(animate) {
+    const mine = ++gen;
     document.querySelectorAll("[data-stat]").forEach((el) => {
       const end = stats[el.dataset.stat];
       if (end == null) return;
       if (!animate || reduced) { el.textContent = compact(end); return; }
       const t0 = performance.now();
       const step = (t) => {
+        if (mine !== gen) return;
         const p = Math.min(1, (t - t0) / 1400);
         el.textContent = compact(Math.round(end * (1 - Math.pow(1 - p, 3))));
         if (p < 1) requestAnimationFrame(step);
@@ -185,7 +188,8 @@
       </article>`;
     })
     .join("");
-  renderStats(false);
+  // fill the project stats without restarting the hero count-up
+  document.querySelectorAll("#projects-list [data-stat]").forEach((el) => (el.textContent = compact(stats[el.dataset.stat])));
 
   $("#features").innerHTML = S.features
     .map((f) => `
