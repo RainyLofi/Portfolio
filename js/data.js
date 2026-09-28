@@ -4,9 +4,7 @@ window.SITE = {
   stats: {
     visits: 88648440,
     favorites: 540387,
-    playing: 213,
     upvotes: 204119,
-    rating: 69,
     groupMembers: 1703668,
   },
 

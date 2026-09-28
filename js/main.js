@@ -122,7 +122,7 @@
   fetch("data/stats.json", { cache: "no-store" })
     .then((r) => (r.ok ? r.json() : null))
     .then((live) => {
-      // ignore data older than a day so a broken cron never shows stale "playing now" numbers
+      // ignore data older than a day so a broken cron never shows stale numbers
       if (live && Date.now() / 1000 - live.updated < 86400) { stats = { ...stats, ...live }; renderStats(false); }
     })
     .catch(() => {});
@@ -171,7 +171,7 @@
         ? `<div class="p-stats">
             <div><b data-stat="visits"></b><span>visits</span></div>
             <div><b data-stat="favorites"></b><span>favourites</span></div>
-            <div><b data-stat="rating"></b><span>% liked</span></div>
+            <div><b data-stat="upvotes"></b><span>upvotes</span></div>
             <div><b data-stat="groupMembers"></b><span>group members</span></div>
             ${(p.facts || []).map(([n, l]) => `<div><b>${esc(n)}</b><span>${esc(l)}</span></div>`).join("")}
           </div>`

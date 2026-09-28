@@ -25,13 +25,10 @@ def main():
     game = get(f"https://games.roblox.com/v1/games?universeIds={UNIVERSE_ID}")["data"][0]
     votes = get(f"https://games.roblox.com/v1/games/votes?universeIds={UNIVERSE_ID}")["data"][0]
     group = get(f"https://groups.roblox.com/v1/groups/{GROUP_ID}")
-    up, down = votes["upVotes"], votes["downVotes"]
     stats = {
         "visits": game["visits"],
         "favorites": game["favoritedCount"],
-        "playing": game["playing"],
-        "upvotes": up,
-        "rating": round(100 * up / max(1, up + down)),
+        "upvotes": votes["upVotes"],
         "groupMembers": group["memberCount"],
         "updated": int(time.time()),
     }

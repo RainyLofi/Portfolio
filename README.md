@@ -12,4 +12,4 @@ The lo-fi radio is generated live with the Web Audio API (`js/lofi.js`), so ther
 
 ## Live game stats
 
-`tools/update_stats.py` pulls public Roblox stats (visits, favourites, players online, rating, GAR group members) into `data/stats.json`. The VPS runs it hourly from cron; the site falls back to the numbers in `js/data.js` if the file is missing or older than a day. `data/` is gitignored.
+`tools/update_stats.py` pulls public Roblox stats (visits, favourites, upvotes, GAR group members) into `data/stats.json`. The VPS runs it hourly from cron; the site falls back to the numbers in `js/data.js` if the file is missing or older than a day. `data/` is gitignored.
