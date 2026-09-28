@@ -555,8 +555,8 @@ window.SITE = {
 
   // From the 2021 portfolio; visits checked against Roblox where the game still exists.
   earlier: [
-    { title: "Waterpark Tycoon", year: "2020", stat: "5.2M+ visits", role: "Intrepid Design", url: "https://www.roblox.com/games/4739381487/Waterpark-Tycoon",
-      body: "A tycoon where you build and run your own waterpark, from the slides to the gear and upgrades." },
+    { title: "Waterpark Tycoon", year: "2020", stat: "5.2M+ visits", role: "hired", url: "https://www.roblox.com/games/4739381487/Waterpark-Tycoon",
+      body: "Hired by Intrepid Design for a tycoon where you build and run your own waterpark, from the slides to the gear and upgrades." },
     { title: "Speed Town", year: "2019", stat: "981K+ visits", role: "hired", url: "https://www.roblox.com/games/3595346692/Speed-Town",
       body: "Rewrote the game, fixed up the UI and built a race system." },
     { title: "Gulag Indoc Zone", year: "2019", stat: "175K+ visits", url: "https://www.roblox.com/games/4341517525/Gulag-Indoc-Zone",
@@ -643,7 +643,7 @@ window.SITE = {
   log: [
     ["~2014", "Started scripting in Roblox's Script Builder"],
     ["2019", "Hired to rewrite Speed Town (981K+ visits); Gulag Indoc Zone for TSU (175K+ visits)"],
-    ["2020", "Waterpark Tycoon (5.2M+ visits); first anti-cheat; PHP/MySQL web tools"],
+    ["2020", "Hired for Waterpark Tycoon (5.2M+ visits); first anti-cheat; PHP/MySQL web tools"],
     ["~2020", "Started developing Star Wars: Roleplay for GAR"],
     ["2021", "Extreme Sword Fighting; Initor bot"],
     ["Jul 2022", "Graduated: BSc Software Engineering"],
