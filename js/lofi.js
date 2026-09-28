@@ -240,6 +240,39 @@ window.Lofi = (() => {
         o.stop(t + 0.3);
       });
     },
+    // The easter egg honk: low, loud and long, with a wobble and a sub rumble underneath.
+    megaHonk() {
+      ctx().resume();
+      const t = ac.currentTime + 0.25; // land as the goose reaches full size
+      const out = ac.createGain();
+      out.gain.setValueAtTime(0.0001, t);
+      out.gain.exponentialRampToValueAtTime(0.7, t + 0.05);
+      out.gain.setValueAtTime(0.7, t + 0.8);
+      out.gain.exponentialRampToValueAtTime(0.0001, t + 1.3);
+      const band = ac.createBiquadFilter();
+      band.type = "bandpass";
+      band.frequency.value = 520;
+      band.Q.value = 0.9;
+      band.connect(out).connect(ac.destination);
+      const wobble = ac.createOscillator();
+      const depth = ac.createGain();
+      wobble.frequency.value = 7;
+      depth.gain.value = 9;
+      wobble.connect(depth);
+      [[1, "sawtooth"], [1.5, "sawtooth"], [0.5, "square"]].forEach(([m, type]) => {
+        const o = ac.createOscillator();
+        o.type = type;
+        o.frequency.setValueAtTime(170 * m, t);
+        o.frequency.linearRampToValueAtTime(150 * m, t + 0.8);
+        o.frequency.exponentialRampToValueAtTime(95 * m, t + 1.3);
+        depth.connect(o.frequency);
+        o.connect(band);
+        o.start(t);
+        o.stop(t + 1.35);
+      });
+      wobble.start(t);
+      wobble.stop(t + 1.35);
+    },
     set(opts) {
       Object.assign(state, opts);
       apply();

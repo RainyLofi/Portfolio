@@ -433,7 +433,17 @@
   geese.forEach((g) => { if (!g.innerHTML.trim()) g.innerHTML = $("#goose").innerHTML; });
   let honks = 0;
   geese.forEach((g) => g.addEventListener("click", () => {
+    if (g.classList.contains("mega")) return;
     honks++;
+    // every tenth click on the same goose: it grows huge and lets out one deep honk
+    g.clicks = (g.clicks || 0) + 1;
+    if (g.clicks % 10 === 0) {
+      g.classList.remove("hop");
+      g.classList.add("mega");
+      window.Lofi.megaHonk();
+      setTimeout(() => g.classList.remove("mega"), 2000);
+      return;
+    }
     window.Lofi.honk(+g.dataset.pitch || 1);
     g.classList.remove("hop");
     void g.offsetWidth; // restart the animation
