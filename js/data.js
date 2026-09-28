@@ -129,12 +129,12 @@ window.SITE = {
     },
     {
       "name": "UI, UX & onboarding",
-      "since": 2021,
+      "since": 2019,
       "blurb": "Interfaces and first-time flows that players understand without reading.",
       "items": [
         [
-          "2021",
-          2021.2,
+          "2019",
+          2019.6,
           "Speed Town rewrite: new UI and a race system (hired)"
         ],
         [
@@ -555,10 +555,12 @@ window.SITE = {
 
   // From the 2021 portfolio; visits checked against Roblox where the game still exists.
   earlier: [
+    { title: "Waterpark Tycoon", year: "2020", stat: "5.2M+ visits", role: "Intrepid Design", url: "https://www.roblox.com/games/4739381487/Waterpark-Tycoon",
+      body: "A tycoon where you build and run your own waterpark, from the slides to the gear and upgrades." },
+    { title: "Speed Town", year: "2019", stat: "981K+ visits", role: "hired", url: "https://www.roblox.com/games/3595346692/Speed-Town",
+      body: "Rewrote the game, fixed up the UI and built a race system." },
     { title: "Gulag Indoc Zone", year: "2019", stat: "175K+ visits", url: "https://www.roblox.com/games/4341517525/Gulag-Indoc-Zone",
       body: "A game for the TSU community's groups and divisions to punish members." },
-    { title: "Speed Town", year: "2021", stat: "981K+ visits at the time", role: "hired",
-      body: "Rewrote the game, fixed up the UI and built a race system." },
     { title: "Background Checkatron", year: "2020", stat: "45K+ visits", url: "https://www.roblox.com/games/6123736747/Background-Checkatron-BUG-FIXES",
       body: "Pulls a player's history from Roblox's web API and works out how risky they are." },
     { title: "Extreme Sword Fighting", year: "2021", url: "https://www.roblox.com/games/6773968330/NOOBS-Extreme-Sword-Fighting-BETA",
@@ -640,10 +642,10 @@ window.SITE = {
   // Newest last; rendered like `git log --oneline --reverse`.
   log: [
     ["~2014", "Started scripting in Roblox's Script Builder"],
-    ["2019", "Gulag Indoc Zone for the TSU community (175K+ visits)"],
-    ["2020", "First anti-cheat; PHP/MySQL web tools for Roblox groups"],
+    ["2019", "Hired to rewrite Speed Town (981K+ visits); Gulag Indoc Zone for TSU (175K+ visits)"],
+    ["2020", "Waterpark Tycoon (5.2M+ visits); first anti-cheat; PHP/MySQL web tools"],
     ["~2020", "Started developing Star Wars: Roleplay for GAR"],
-    ["2021", "Hired to rewrite Speed Town (981K+ visits); Extreme Sword Fighting; Initor bot"],
+    ["2021", "Extreme Sword Fighting; Initor bot"],
     ["Jul 2022", "Graduated: BSc Software Engineering"],
     ["Sep 2022", "Began the Coruscant rework: one codebase for every place"],
     ["2023", "Built gar-api and gar-bot with another developer"],
